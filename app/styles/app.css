@@ -1,0 +1,67 @@
+body {
+    padding-top: 50%;
+}
+
+
+h1 {
+    margin-bottom: 20px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar {
+    position: fixed;
+    top: 98px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid #eee;
+}
+
+.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sidebar .nav {
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+    width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+    margin-left: 0;
+}
+
+.sidebar .nav-link {
+    border-radius: 0;
+}
+
+.folder-icon {
+    width: 2rem;
+    height: 2rem;
+    background: url('folder-icon.png') no-repeat center;
+    background-size: 100% 100%;
+}
+
+.breadcrumb {
+    position: fixed;
+    top: 51px;
+    z-index: 1000;
+    width: 100%;
+}
+
+.file-list {
+    margin-top: 45px
+}
+
+
+
+
+
+
