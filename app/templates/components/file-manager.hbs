@@ -1,1 +1,7 @@
-{{yield}}
+{{folder-breadcrumbs filePath=model.filePath}}
+<div class="row">
+    {{side-bar model=model.sideBarDirectory}}
+    <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    {{file-list files=model.currentDirectory}}
+    </main>
+</div>

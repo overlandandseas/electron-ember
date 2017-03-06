@@ -1,8 +1,8 @@
 import Ember from 'ember'
 
-export default function formatFilepath(filePath) {
-    let parts = filesPath
-        .replace(/\\g, '/')
+export function formatFilePath(filePath) {
+    let parts = filePath
+        .replace(/\\/g, '/')
         .split('/')
         .filter(Boolean)
     
@@ -10,5 +10,5 @@ export default function formatFilepath(filePath) {
     return parts.map( part => {
         link += `/${part}`
         return { path: link, name: part }
-    }
+    })
 }
