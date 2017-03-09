@@ -60,6 +60,7 @@ export default Ember.Service.extend({
                     // directories do not have an extension, hardcode it as 'directory'
                     let fileExt = fileStat.isDirectory() ? 'directory' : path.extname(filePath).substr(1);
                     let parsedPath = path.parse(filePath);
+                    console.log('parsedPath', parsedPath);
                     let opts = {
                         filePath,
                         fileExt,
