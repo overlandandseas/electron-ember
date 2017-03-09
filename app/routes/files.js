@@ -4,7 +4,7 @@ import { formatFilePath } from '../utils/format-filepath';
 export default Ember.Route.extend({
     readDirectory: Ember.inject.service(),
     model (params) {
-        const filePath = params.file_path === 'root' ? process.env['HOME'] : params.fill_path;
+        const filePath = params.file_path === 'root' ? process.env['HOME'] : params.file_path;
         let sideBarDirectory = this.get('readDirectory').path();
         let currentDirectory = this.get('readDirectory').path(filePath);
 

@@ -44,7 +44,6 @@ const rootPath = process.env['HOME'];
 
 export default Ember.Service.extend({
     path(dir = rootPath) {
-        console.log('creating a stupid service');
         var callback = (resolve, reject) => {
             fs.readdir(dir, (error, files) => {
                 if (error) {
@@ -55,12 +54,10 @@ export default Ember.Service.extend({
                 var fileObjects = filteredFiles.map(file => {
                     let filePath = path.join(dir, file);
                     let fileStat = fs.statSync(filePath);
-                    console.log('fileStats', fileStat);
                     let fileSize = fileStat.size ? humanFileSize(fileStat.size) : '';
                     // directories do not have an extension, hardcode it as 'directory'
                     let fileExt = fileStat.isDirectory() ? 'directory' : path.extname(filePath).substr(1);
                     let parsedPath = path.parse(filePath);
-                    console.log('parsedPath', parsedPath);
                     let opts = {
                         filePath,
                         fileExt,
