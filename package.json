@@ -46,7 +46,7 @@
     "loader.js": "^4.0.10"
   },
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 7.0.0"
   },
   "private": true,
   "main": "electron.js",

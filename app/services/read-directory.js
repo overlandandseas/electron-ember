@@ -1,12 +1,12 @@
 import Ember from 'ember';
 
 // requires
-const fs = require('fs')
-const path = require('path')
-const junk = require('junk')
+const fs = require('fs');
+const path = require('path');
+const junk = require('junk');
 
-const Promise = Ember.RSVP.Promise
-const computed = Ember.computed
+const Promise = Ember.RSVP.Promise;
+const computed = Ember.computed;
 const map = {
     directory: ['directory'],
     compressed: ['zip', 'rar', 'gz', '7z'],
@@ -22,55 +22,57 @@ const map = {
 
 var FileProxy = Ember.ObjectProxy.extend({
     fileType: computed('fileExt', function() {
-        var ext = this.get('fileExt')
-        return Object.keys(map).find(type => map[type].includes(ext))
+        var ext = this.get('fileExt');
+        return Object.keys(map).find(type => map[type].includes(ext));
     }),
     isDirectory: computed('fileType', function() {
-        return this.get('fileType') === 'directory'
+        return this.get('fileType') === 'directory';
     }),
     icon: computed('fileType', function() {
-        if (this.get('fileType') === 'directory')
-            return 'assets/folder-icon.png'
+        if (this.get('fileType') === 'directory') {
+            return 'assets/folder-icon.png';
+        }
     })
-})
+});
 
 var humanFileSize = size => {
-    var i = Math.floor( Math.log(size) / Math.log(1024) )
-      return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
-}
+    var i = Math.floor( Math.log(size) / Math.log(1024) );
+    return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+};
 
-const rootPath = process.env['HOME']
+const rootPath = process.env['HOME'];
 
 export default Ember.Service.extend({
     path(dir = rootPath) {
+        console.log('creating a stupid service');
         var callback = (resolve, reject) => {
             fs.readdir(dir, (error, files) => {
                 if (error) {
-                    window.alert(error.message)
-                    return reject(error)
+                    window.alert(error.message);
+                    return reject(error);
                 }
-                var filteredFiles = files.filter(file => junk.not(file) && file[0] !== '.')
+                var filteredFiles = files.filter(file => junk.not(file) && file[0] !== '.');
                 var fileObjects = filteredFiles.map(file => {
-                    let filePath = path.join(dir, file)
-                    let fileStat = fs.statSync(filePath)
-                    let fileSize = fileStat.size ? humanFileSize(fileStat.size) : ''
+                    let filePath = path.join(dir, file);
+                    let fileStat = fs.statSync(filePath);
+                    console.log('fileStats', fileStat);
+                    let fileSize = fileStat.size ? humanFileSize(fileStat.size) : '';
                     // directories do not have an extension, hardcode it as 'directory'
-                    let fileExt = fileStat.isDirectory() ? 'directory' : path.extname(filePath).substr(1)
-                    let parsedPath = path.parse(filePath)
-
+                    let fileExt = fileStat.isDirectory() ? 'directory' : path.extname(filePath).substr(1);
+                    let parsedPath = path.parse(filePath);
                     let opts = {
                         filePath,
                         fileExt,
                         fileSize,
                         ...fileStat,
                         ...parsedPath
-                    }
-                    return new FileProxy(opts)
+                    };
+                    return new FileProxy(opts);
 
-                })
-                resolve(fileObjects)
-            })
-        }
-        return new Promise(callback)
+                });
+                resolve(fileObjects);
+            });
+        };
+        return new Promise(callback);
     }
 });

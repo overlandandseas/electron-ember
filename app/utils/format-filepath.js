@@ -1,14 +1,14 @@
-import Ember from 'ember'
+import Ember from 'ember';
 
 export function formatFilePath(filePath) {
     let parts = filePath
         .replace(/\\/g, '/')
         .split('/')
-        .filter(Boolean)
+        .filter(Boolean);
     
-    let link = ''
+    let link = '';
     return parts.map( part => {
-        link += `/${part}`
-        return { path: link, name: part }
-    })
-}
+        link += `/${part}`;
+        return { path: link, name: part };
+    });
+};
